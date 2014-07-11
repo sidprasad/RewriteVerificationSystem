@@ -10,12 +10,11 @@ equal(T1, T2, N, Cert1, Cert2, Rw) :- treeify(T1, T1_, N), treeify(T2, T2_, N),
 				      treeify(Rw, NormUni).
 %Terms are provided as trees
 equal(T1, T2, Cert1, Cert2, Rw) :- equate(T1, Norm, [], Cert1_), % Rewrite T1_ to normal form
-				   treeify_uni(Norm, Rw),     					   equate(T2, Rw, [], Cert2_),
-		    		 reverse(Cert1, Cert1_), reverse(Cert2, Cert2_).
+				   treeify_uni(Norm, Rw),     					 equate(T2, Rw, [], Cert2_),
+										 reverse(Cert1, Cert1_), reverse(Cert2, Cert2_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Either apply a rule to the Term and add the path (which is stored backwards),
-%to the term
-applyRule(T, T_, Path, Cert, [Path_|Cert]) :- pred(T, T_), reverse(Path_, Path).
+%Either apply a rule to the Term
+applyRule(T, T_, Path, Cert, [Path|Cert]) :- pred(T, T_).
 
 %Else, try immediate subterms
 applyRule(t(K1,L), t(K1, Lnew), Path, Cert, NewCert) :- member(SubT, L, N),

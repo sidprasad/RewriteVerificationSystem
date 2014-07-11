@@ -1,6 +1,6 @@
-d + ((-a + -b) + a)
-[[], [1,0]]
-(- (a*b)+a)+d
+true
+[[],[],[]]
+b+a+c+d+true
 % Last modified: 8th July 2014
 % Siddhartha Prasad
 t(_, _).
