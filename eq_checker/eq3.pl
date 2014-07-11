@@ -3,14 +3,16 @@
 
 %Terms are provided in linear form
 equal(T1, T2, N, Cert1, Cert2, Rw) :- treeify(T1, T1_, N), treeify(T2, T2_, N), 
-										 equate(T1_, Norm, [], Cert1), % Rewrite T1_ to normal form
+										 equate(T1_, Norm, [], Cert1_), % Rewrite T1_ to normal form
 										 treeify_uni(Norm, NormUni),   %Now convert the tree Norm into a unifiable tree NormUni
-										 equate(T2_, NormUni, [], Cert2), !,
+										 equate(T2_, NormUni, [], Cert2_), !,
+										 reverse(Cert1, Cert1_), reverse(Cert2, Cert2_),
 										 treeify(Rw, NormUni).
 %Terms are provided as trees
-equal(T1, T2, Cert1, Cert2, Rw) :- equate(T1, Norm, [], Cert1), % Rewrite T1_ to normal form
+equal(T1, T2, Cert1, Cert2, Rw) :- equate(T1, Norm, [], Cert1_), % Rewrite T1_ to normal form
 										 treeify_uni(Norm, Rw),  
-										 equate(T2, Rw, [], Cert2).									 
+										 equate(T2, Rw, [], Cert2_),
+										 reverse(Cert1, Cert1_), reverse(Cert2, Cert2_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Either apply a rule to the Term
 applyRule(T, T_, Path, Cert, [Path|Cert]) :- pred(T, T_).

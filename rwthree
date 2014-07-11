@@ -1,0 +1,44 @@
+#!\bin\bash
+#I WANT TO BE ABLE TO USE
+#mktemp here
+TMPFILE="eq3pid"
+CRT="tmpcertpid"
+TMP="tmppid"
+
+echo 'X=' >$TMP
+sed '1q;d' $2 >>$TMP
+echo ', Y=' >>$TMP
+sed '2q;d' $2 >>$TMP
+echo ',equal(X, Y, ' >> $TMP
+sed '3q;d' $2 >>$TMP
+echo ', Cert1, Cert2, Rw), createCert(X, Cert1, Rw), createCert(Y, Cert2, Rw).' >> $TMP
+
+echo 'Checking '
+sed '1q;d' $2
+echo ' = '
+sed '2q;d' $2
+
+cat eq_checker/eq3.pl $1 > $TMPFILE
+cat eq_checker/parse.pl >> $TMPFILE
+swipl -q -f $TMPFILE < $TMP > $CRT
+
+#This will replace all strings of the form :-{.}*{>|<}{.}*
+#With .\n . That is, all non-terminating rules.
+
+sed s/:-.*'>'.*/'.\n'/ $1 > $TMPFILE
+
+sed '6q;d' $CRT >$4
+sed '5q;d' $CRT >>$4
+sed '4q;d' $CRT >>$4
+
+sed '3q;d' $CRT > $3
+sed '2q;d' $CRT >> $3
+sed '1q;d' $CRT >>$3
+
+# Over here, all terminating rules need to be dealt with.
+cat $TMPFILE >> $3
+cat $TMPFILE >> $4
+
+rm $TMP
+rm $TMPFILE
+rm $CRT
