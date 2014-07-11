@@ -1,0 +1,33 @@
+#Siddhartha Prasad 10/7/2014
+
+#!\bin\bash
+
+
+#Figure out how to do use mktemp
+PRED="predpid.pl"
+QUERY="querypid"
+TMPFILE="temppid"
+
+#Get predicates from argument
+sed '1,3d' $1 >> $PRED
+
+#Create the query using the Certificates
+
+#This turns off common prolog warning messages
+echo "style_check(-singleton), style_check(-discontiguous)." >> $QUERY
+echo "consult('$PRED')," >> $QUERY
+echo "consult('verifier.pl')." >> $QUERY
+echo "verify(" >> $QUERY
+sed '1q;d' $1 >> $QUERY
+echo "," >> $QUERY
+sed '2q;d' $1 >> $QUERY
+echo "," >>$QUERY
+sed '3q;d' $1 >> $QUERY
+echo ")." >>$QUERY
+#Remove first two lines of output, as it has to do with style_check
+swipl -q < $QUERY 2> $TMPFILE
+sed '1,3d' $TMPFILE
+
+rm $TMPFILE
+rm $PRED
+rm $QUERY

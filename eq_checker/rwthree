@@ -1,0 +1,29 @@
+#!\bin\bash
+#I WANT TO BE ABLE TO USE
+#mktemp here
+TMPFILE="eq3$1$2$3pid"
+CRT="tmpcertpid"
+
+cat eq3.pl $1 > $TMPFILE
+cat parse.pl >> $TMPFILE
+swipl -q -f $TMPFILE < $2 > $CRT
+
+#This will replace all strings of the form :-{.}*{>|<}{.}*
+#With .\n . That is, all non-terminating rules.
+
+sed s/:-.*'>'.*/'.\n'/ $1 > $TMPFILE
+
+sed '6q;d' $CRT >$4
+sed '5q;d' $CRT >>$4
+sed '4q;d' $CRT >>$4
+
+sed '3q;d' $CRT > $3
+sed '2q;d' $CRT >> $3
+sed '1q;d' $CRT >>$3
+
+# Over here, all terminating rules need to be dealt with.
+cat $TMPFILE >> $3
+cat $TMPFILE >> $4
+
+rm $TMPFILE
+rm $CRT
