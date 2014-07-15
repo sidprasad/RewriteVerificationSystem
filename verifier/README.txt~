@@ -1,6 +1,7 @@
 Rewrite Verifier
 Siddhartha Prasad
 ----------------------
+
 1. Overview
 ----------------------
 The 'checkpc' verifier is a system that can, given a certificate of a proof
@@ -42,19 +43,29 @@ SHOW USE HERE
 
 	- The "else" tactical attempts to apply a rewrite rule to a term.
 	  If it fails, it attempts to apply another rule to the term.
+	  Thus, if the two rules to be used are r1 and r2, (else, (r1,r2))
+	  could be placed anywhere a rewrite rule could in the Certificate
+	  List.
 
 	- The "sym" tactical applies the symmetric version of a rewrite rule
-	  to a term.
+	  to a term. Thus, if rule r1 is to be made symmetric, (sym, r1)
+	  could be placed anywhere a rewrite rule could in the Certificate 
+	  List.
 
 	- The "conv" tactical applies the converse of a rewrite rule to a term.
-
+	  Thus, if the converse of r1 is to be used, (conv, r1)
+	  could be placed anywhere a rewrite rule could in the Certificate
+	  List.
 
 	- The "then" tactical takes two terms with a common 'ancestor' in
 	the tree, and applies a rewrite rule to each without affecting
-	anything higher in the tree than the common ancestor.
+	anything higher in the tree than the common ancestor. Thus, if r1
+	and r2 are the two rules and p1 and p2 are the paths to the two
+	subterms, (then, (r1,p1),(r2,p2))) could be placed anywhere a rewrite
+	rule could in the Certificate List.
 
-
-
+These tacticals allow for greater flexibility for the user, and also reduce
+the size of certificates required by the verifier.
 
 4. Representing Rewrite Rules
 ------------------------------
