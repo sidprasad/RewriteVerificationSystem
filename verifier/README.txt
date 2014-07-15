@@ -14,20 +14,47 @@ It can be used on the command-line as follows:
 The proof certificates accepted by the verifier are flexible in their syntax
 For an equality s = t, where the proof involves rewriting s to t:
 	i. t must be on the first line of the proof certificate
-	ii. The rewrite rules used, the terms rewritten, both or the number of
-	    rewrite rules must be defined in a list on the second line of the
-	    file, as described in section 3.
+	ii. The Certificate List, as described in section 3, must be on the
+	    second line.
 	iii. s must be on the third line of the file
 	iv. Rewrite rules and tree-building rules must comprise the rest of
 	    the certificate (See sections 4 and 5).
 
-3. Certificate List
-----------------------
+3. Certificate List and Tacticals
+----------------------------------
+The 'Certificate List' in the proof certificate contains the justifications
+that an equality proof is indeed valid. The "checkpc" rewriter is flexible
+in the Certificate Lists it accepts. Such a list could be:
+
+	i. The rewrite rules used, in order.
+	ii. The 'paths' from the root to the terms rewritten (in the tree 
+	   structure described in section 4) in the order they were rewritten.
+	iii. Some combination of i and ii.
+	iv. The total number of rewrite rules used.
+
+These are represented as Prolog lists. If the names of rewrite rules used are
+not specified, they are assumed to be 'pred'.
+
+A system of "tacticals" is also provided that allow for manipulation of
+rewrite rules.
+
+SHOW USE HERE
+
+	- The "else" tactical attempts to apply a rewrite rule to a term.
+	  If it fails, it attempts to apply another rule to the term.
+
+	- The "sym" tactical applies the symmetric version of a rewrite rule
+	  to a term.
+
+	- The "conv" tactical applies the converse of a rewrite rule to a term.
 
 
+	- The "then" tactical takes two terms with a common 'ancestor' in
+	the tree, and applies a rewrite rule to each without affecting
+	anything higher in the tree than the common ancestor.
 
-
-
+These tacticals allow for greater flexibility for the user, and also reduce
+the size of certificates required by the verifier.
 
 4. Representing Rewrite Rules
 ------------------------------
@@ -78,3 +105,6 @@ Example Certificates that use various features of "checkpc" can alss be found
 in the directory '/Examples'. Additionally, the "rwthree" equality checker
 can also be used to generate examples.
 
+7. Also Provided
+---------------------
+ - A proof of correctness of the "checkpc" verifier
