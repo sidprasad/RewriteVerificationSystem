@@ -1,6 +1,6 @@
-true
-[[],[],[]]
-b+c+true
+true*false
+[[],[1],[1],[1]]
+true*l*false
 % Last modified: 8th July 2014
 % Siddhartha Prasad
 t(_, _).

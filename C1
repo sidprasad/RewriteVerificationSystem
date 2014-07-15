@@ -1,9 +1,6 @@
-true
-[[],[1,0],[1,0],[1],[],[0],[1],[1],[]]
-- (a*b)+a+d
-% Last modified: 8th July 2014
-% Siddhartha Prasad
-t(_, _).
+true*false
+[[],[],[1],[1,0],[1],[1,1,0],[1,1,0],[1,1],[1,1,1],[1,1],[1]]
+- (a+b)*true* (true*a)
 
 treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
 treeify((X * Y), t((*, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
@@ -47,15 +44,9 @@ pred(t(('*', _), [t((~, _), [X]), X]), t(false, [])).
 pred(t(('*', _), [X, X]), X).
 pred(t(('+', _), [X, X]), X).
 
-%Distribution laws
 pred(t(('*', M), [X, t(('+', N), [Y, Z])]), t(('+', N), [t(('*', M_), [X, Y]), t(('*', M_), [X, Z])])) .
 
 pred(t(('+', M), [X, t(('*', N), [Y, Z])]), t(('*', N), [t(('+', M_), [X, Y]), t(('+', M_), [X, Z])])) .
 
-
-
-
-%DeMorgan's laws, the pair values here need to be looked at. Maybe they need to be increased to max again?
 pred(t((~, _), [t(('*', N), [X, Y])]), t(('+', N), [t((~, _),[X]),t((~, _),[Y])])).
 pred(t((~, _), [t((+, N), [X, Y]) ]), t(('*', N), [t((~, _),[X]),t((~, _),[Y])])).
-
