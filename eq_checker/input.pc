@@ -1,2 +1,0 @@
-X = p + true,
-Y = b + a + c + d + true, equal(X, Y, 2, Cert1, Cert2, Rw), createCert(X, Cert1, Rw), createCert(Y, Cert2, Rw).

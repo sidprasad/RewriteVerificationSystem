@@ -1,6 +1,6 @@
 true
 [[],[],[]]
-p+true
+a+b+c+true
 % Last modified: 8th July 2014
 % Siddhartha Prasad
 t(_, _).

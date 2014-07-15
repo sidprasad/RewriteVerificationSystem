@@ -1,12 +1,7 @@
 Verifier Documentation:
-1. How to use
-2. Certificates and their formats
-3. Felxibility and tacticals
 4. Correctness proof
 5. Examples
 
 Rewriter "rwthree"
-1. Documentation of how to use on the command line
-2. Documentation on how to use in Prolog(?)
 3. Demonstrate use w/ Verifier
 

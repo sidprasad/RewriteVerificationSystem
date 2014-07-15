@@ -7,17 +7,20 @@ Equality Checker 3 is an equality checking system that, given a set of rewrite
 rules, checks if two terms are equal in the specified system. It also provides
 a verifiable certificate of the procedure used to determine equality.
 
-SWI-Prolog are required required to use Equality Checker 3 from the command line,
-for use in a Prolog Shell, consult the Prolog Use Notes.
+The program must be loaded into a Prolog interpreter, along with rewrite rules
+as detailed below. It can then be used as follows:
 
-In the command line, the program can be used as follows:
+i. If the input terms are provided in linear mathematical notation:
+			equal(<Term1>, <Term2>, <Number of Non-Terminating Rules>, Certificate1, 
+				Certificate2, Rw (Intermediate to which both expressions are rewritten)).
+			
+ii. If the input terms are provided as trees:
+			equal(<Term1>, <Term2>, Certificate1, Certificate2, 
+			Rw (Intermediate to which both expressions are rewritten)).
 
-	% sh rwthree rewrite_rules.pl input C1 C2
-
-i. Rewrite rules must be represented in Prolog syntax in a file, as described
-   in section 3.
-
-ii. The input file should contain the two terms to be equated on seperate lines.
+Certificate1 is a certificate of Term1 = Rw
+Certificate2 is a certificate of Term2 = Rw
+Rw, Certificate1 and Certificate2 should be Prolog variables.
 
 
 2. Termination
