@@ -1,58 +1,13 @@
-true
-[[],[],[]]
-b+a+c+d+true
+a + (b + (c - c))
+[(subtr,[1,0]), (id_add, [1]), ((conv, id_add),[1]), ((conv, subtr), [1,1]) ]
+a + ((b - b) + b)
 
-treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
-treeify((X * Y), t((*, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
-treeify((- X), t((~, N), [X_]), N) :- treeify(X, X_, N).
-treeify(X, t(X,[]), _).
+treeify(X + Y, t(+, [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify(X - Y, t(-, [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify(X, t(X, [])).
 
-
-treeify((X + Y), t((+, _), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
-treeify((X * Y), t((*, _), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
-treeify((- X), t((~, _), [X_])) :- treeify(X, X_).
-treeify(X, t(X,[])).
-
-
-%OR
-pred( t(('+', N), [X, Y]), t(('+', N_), [Y, X])) .
-
-pred(t(('+', _), [X, t(false, [])]), X). 
-pred(t(('+', _), [_, t(true, [])]), t(true, [])).
-pred(t(('+', N), [t(('+', M), [X, Y]), Z]), t(('+', N_), [X, t(('+', M), [Y, Z])])) .
-
-pred( t(('+', N), [X, t(('+', M), [Y, Z])]), t(('+', N_), [t(('+', M), [X, Y]), Z])) .
-
-
-
-%Negation
-pred(t(('+', _),[X, t((~, _), [X])]), t(true,[])).
-pred(t((~, _),[t((~, _),[X])]), X).
-
-%AND
-pred( t(('*', N), [X, Y]), t(('*', N_), [Y, X])) .
-
-
-pred(t(('*', _), [_, t(false, [])]), t(false, [])).
-pred(t(('*', _), [X, t(true, [])]), X).
-pred(t(('*', N), [t(('*', M), [X, Y]), Z]), t(('*', N_), [X, t(('*', M), [Y, Z])])) .
-
-pred( t(('*', N), [X, t(('*', M), [Y, Z])]), t(('*', N_), [t(('*', M), [X, Y]), Z])) .
-
-pred(t(('*', _), [t((~, _), [X]), X]), t(false, [])).
-
-pred(t(('*', _), [X, X]), X).
-pred(t(('+', _), [X, X]), X).
-
-%Distribution laws
-pred(t(('*', M), [X, t(('+', N), [Y, Z])]), t(('+', N), [t(('*', M_), [X, Y]), t(('*', M_), [X, Z])])) .
-
-pred(t(('+', M), [X, t(('*', N), [Y, Z])]), t(('*', N), [t(('+', M_), [X, Y]), t(('+', M_), [X, Z])])) .
-
-
-
-
-%DeMorgan's laws, the pair values here need to be looked at. Maybe they need to be increased to max again?
-pred(t((~, _), [t(('*', N), [X, Y])]), t(('+', N), [t((~, _),[X]),t((~, _),[Y])])).
-pred(t((~, _), [t((+, N), [X, Y]) ]), t(('*', N), [t((~, _),[X]),t((~, _),[Y])])).
-
+comm_add( t('+', [X, Y]), t('+', [Y, X])).
+id_add(t('+', [X, t(0, [])]), X).
+id_add(t('+', [t(0, []), X]), X).
+assoc_add(t('+', [t('+', [X, Y]), Z]), t('+', [X, t('+', [Y, Z])])).
+subtr(t(-, [X, X]), t(0,[])).

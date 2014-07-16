@@ -1,0 +1,55 @@
+p+true
+[[],[],[],[1],[1],[1],[1],[1]]
+p+q+true
+
+treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
+treeify((X * Y), t((*, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
+treeify((- X), t((~, N), [X_]), N) :- treeify(X, X_, N).
+treeify(X, t(X,[]), _).
+
+
+treeify((X + Y), t((+, _), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify((X * Y), t((*, _), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify((- X), t((~, _), [X_])) :- treeify(X, X_).
+treeify(X, t(X,[])).
+
+
+%OR
+pred( t(('+', N), [X, Y]), t(('+', N_), [Y, X])) .
+
+pred(t(('+', _), [X, t(false, [])]), X). 
+pred(t(('+', _), [_, t(true, [])]), t(true, [])).
+pred(t(('+', N), [t(('+', M), [X, Y]), Z]), t(('+', N_), [X, t(('+', M), [Y, Z])])) .
+
+pred( t(('+', N), [X, t(('+', M), [Y, Z])]), t(('+', N_), [t(('+', M), [X, Y]), Z])) .
+
+
+
+%Negation
+pred(t(('+', _),[X, t((~, _), [X])]), t(true,[])).
+pred(t((~, _),[t((~, _),[X])]), X).
+
+%AND
+pred( t(('*', N), [X, Y]), t(('*', N_), [Y, X])) .
+
+
+pred(t(('*', _), [_, t(false, [])]), t(false, [])).
+pred(t(('*', _), [X, t(true, [])]), X).
+pred(t(('*', N), [t(('*', M), [X, Y]), Z]), t(('*', N_), [X, t(('*', M), [Y, Z])])) .
+
+pred( t(('*', N), [X, t(('*', M), [Y, Z])]), t(('*', N_), [t(('*', M), [X, Y]), Z])) .
+
+pred(t(('*', _), [t((~, _), [X]), X]), t(false, [])).
+
+pred(t(('*', _), [X, X]), X).
+pred(t(('+', _), [X, X]), X).
+
+%Distribution laws
+pred(t(('*', M), [X, t(('+', N), [Y, Z])]), t(('+', N), [t(('*', M_), [X, Y]), t(('*', M_), [X, Z])])) .
+
+pred(t(('+', M), [X, t(('*', N), [Y, Z])]), t(('*', N), [t(('+', M_), [X, Y]), t(('+', M_), [X, Z])])) .
+
+%DeMorgan's laws
+pred(t((~, _), [t(('*', N), [X, Y])]), t(('+', N), [t((~, _),[X]),t((~, _),[Y])])).
+pred(t((~, _), [t((+, N), [X, Y]) ]), t(('*', N), [t((~, _),[X]),t((~, _),[Y])])).
+
