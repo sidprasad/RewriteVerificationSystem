@@ -107,13 +107,12 @@ While the constant case needs to be expressed only once, a seperate
 'treeify' predicate must be defined for each operator symbol.
 
 
-6. Examples
----------------
+6. Also Provided
+------------------
 
-Example Certificates that use various features of "checkpc" can alss be found
+- Example Certificates that use various features of "checkpc" can alss be found
 in the directory '/Examples'. Additionally, the "rwthree" equality checker
 can also be used to generate examples.
 
-7. Also Provided
----------------------
- - A proof of correctness of the "checkpc" verifier
+- A proof of correctness of the "checkpc" verifier
+
