@@ -56,6 +56,8 @@ Non terminating rules are expressed as follows:
 	%Equality Checker 3 representation.
 	pred( t(('+', N), [X, Y]), t(('+', N_), [Y, X])) :- N > 0, N_ is N-1.
 
+Example files of rules can be found in the ExampleRules directory.
+
 	
 4. Building trees
 --------------

@@ -1,10 +1,14 @@
-To use:
+Siddhartha Prasad
+17 July 2014
 
-To use the rewriter,
-where rewriterules are the rewrite rules in prolog syntax, as described
-input.pc holds the two terms to be equated on different lines
-C1.pc and C2.pc are verifiable certificates of the equations.
-%rwthree rewriterules.pl input.pc C1.pc C2.pc
+This directory contains:
 
-To use the verifier, where rewriteCertificate is a certificate in the form......(DESCRIBE FORM)
-% sh checkpc rewriteCertificate.pc
+1. A term equality checker
+2. A system that verifies equalities
+
+Requirements
+-------------
+1. SWI-Prolog
+2. A Bash command line interface
+3. sed
+

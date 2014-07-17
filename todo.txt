@@ -1,7 +1,5 @@
 Verifier Documentation:
 4. Correctness proof
-5. Examples
 
 Rewriter "rwthree"
-3. Demonstrate use w/ Verifier
 
