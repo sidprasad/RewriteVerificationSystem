@@ -75,7 +75,13 @@ Terms are represented in the system as trees of the form:
 
 If a term is a constant or variable (say x), it is of the form
 				t(x, [])
-			
+
+Thus, the subterms of a term are zero-indexed by integers, from left to
+right. 'Paths'  in the Certificate List therefore take the form of a list 
+of integers.
+For example, (x + y) has path [0, 1] in the term
+t(*, [t(*, [t(z,[]), t(+, [t(x,[]), t(y,[])])]), t(w,[])])
+
 Rewrite rules are specified as predicates in Prolog syntax.
 They are expressed as follows:
 
