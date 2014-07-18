@@ -1,5 +1,0 @@
-Verifier Documentation:
-4. Correctness proof
-
-Rewriter "rwthree"
-

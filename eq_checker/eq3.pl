@@ -1,6 +1,8 @@
 %Naive rewriter 3
 %7/8/2014 Siddhartha Prasad
 
+t(_,_).
+
 %Terms are provided in linear form
 equal(T1, T2, N, Cert1, Cert2, Rw) :- treeify(T1, T1_, N), treeify(T2, T2_, N), 
 				      equate(T1_, Norm, [], Cert1_), % Rewrite T1_ to normal form

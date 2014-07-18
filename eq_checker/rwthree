@@ -1,6 +1,7 @@
 #!\bin\bash
-#I WANT TO BE ABLE TO USE
-#mktemp here
+
+#Siddhartha Prasad
+
 TMPFILE="eq3pid"
 CRT="tmpcertpid"
 TMP="tmppid"

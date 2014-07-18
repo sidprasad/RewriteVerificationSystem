@@ -1,9 +1,5 @@
 #Siddhartha Prasad 10/7/2014
-
 #!\bin\bash
-
-
-#Figure out how to do use mktemp
 PRED="predpid.pl"
 QUERY="querypid"
 TMPFILE="temppid"

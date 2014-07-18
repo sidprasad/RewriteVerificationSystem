@@ -1,7 +1,5 @@
 % Last modified: 8th July 2014
 % Siddhartha Prasad
-t(_, _).
-
 treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
 treeify((X * Y), t((*, N), [X_, Y_]), N) :- treeify(X, X_, N), treeify(Y, Y_, N).
 treeify((- X), t((~, N), [X_]), N) :- treeify(X, X_, N).
@@ -43,8 +41,7 @@ pred(t(('*', M), [X, t(('+', N), [Y, Z])]), t(('+', N), [t(('*', M_), [X, Y]), t
 pred(t(('+', M), [X, t(('*', N), [Y, Z])]), t(('*', N), [t(('+', M_), [X, Y]), t(('+', M_), [X, Z])])) :- M > 0, M_ is M-1.
 
 
-
-%DeMorgan's laws, the pair values here need to be looked at. Maybe they need to be increased to max again?
+%Demorgan's laws
 pred(t((~, _), [t(('*', N), [X, Y])]), t(('+', N), [t((~, _),[X]),t((~, _),[Y])])).
 pred(t((~, _), [t((+, N), [X, Y]) ]), t(('*', N), [t((~, _),[X]),t((~, _),[Y])])).
 
