@@ -11,4 +11,4 @@ Requirements
 1. SWI-Prolog
 2. A Bash command line interface
 3. sed
-
+4. mktemp
