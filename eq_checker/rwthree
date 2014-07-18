@@ -2,9 +2,9 @@
 
 #Siddhartha Prasad
 
-TMPFILE="eq3pid"
-CRT="tmpcertpid"
-TMP="tmppid"
+TMPFILE=$(mktemp XXXXXXX.temppc) || exit 1
+CRT=$(mktemp XXXXXXX.temppc) || exit 1
+TMP=$(mktemp XXXXXXX.temppc) || exit 1
 
 echo 'X=' >$TMP
 sed '1q;d' $2 >>$TMP

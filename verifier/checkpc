@@ -1,8 +1,8 @@
 #Siddhartha Prasad 10/7/2014
 #!\bin\bash
-PRED="predpid.pl"
-QUERY="querypid"
-TMPFILE="temppid"
+PRED=$(mktemp XXXXXXX.temppc) || exit 1
+QUERY=$(mktemp XXXXXXX.temppc) || exit 1
+TMPFILE=$(mktemp XXXXXXX.temppc) || exit 1
 
 #Get predicates from argument
 sed '1,3d' $1 >> $PRED
