@@ -1,0 +1,26 @@
+e
+[(id,[1,0,0]) , (inv,[1,0,1]), (id,[1,0]), (inv,[])]
+a * - ( (a*e) * (b * -b))
+
+
+treeify((X * Y), t((*), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify((- X), t((~), [X_])) :- treeify(X, X_).
+treeify(X, t(X,[])).
+
+
+%Associativity
+assoc(t(('*'), [t(('*'), [X, Y]), Z]), t(('*'), [X, t(('*'), [Y, Z])])).
+
+
+% a * -a = e
+inv(t(*,[A, t(~, [A])]), t(e,[])).
+
+% e = a * -a
+%pred(t(e,[]), t(*,[t(X, L), t(~, [t(X, L)])])).
+
+% a * e = a
+id(t(*, [A, t(e, [])]), A).	
+
+
+% a = a * e						
+%pred(t(OP, L), t(*, [t(OP, L), t(e, [])])).
