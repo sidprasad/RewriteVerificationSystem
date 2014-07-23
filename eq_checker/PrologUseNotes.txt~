@@ -88,4 +88,3 @@ For instance, to parse the operator '+':
 		%If not nullary operators
 	    	treeify(X, t(X,[]), _).
 		treeify(X, t(X,[])).
-
