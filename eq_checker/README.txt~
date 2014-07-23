@@ -45,12 +45,7 @@ of the form:
 
 	If a term is a constant or variable, it is of the form
 				t(x, [])
-	Constants and variables can also be expressed as 'null-ary' operators
-	of the form:
-				t((OP, N), [])
 
-	If constants are of the form (X,Y), they must be expressed as
-	null-ary operators.
 			
 Terminating rules are expressed as follows:
 	%Rule
@@ -76,20 +71,16 @@ and trees, named 'treeify'.
 
 For instance, to parse the operator '+':
 
-		treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N),	
-							    treeify(Y, Y_, N).
-		treeify((X + Y), t((+, _), [X_, Y_])) :- treeify(X, X_),
-							 treeify(Y, Y_).
+		treeify((X + Y), t((+, N), [X_, Y_]), N) :- treeify(X, X_, N), 
+												treeify(Y, Y_, N).
+		treeify((X + Y), t((+, _), [X_, Y_])) :- treeify(X, X_), 
+												 treeify(Y, Y_).
+		
+
+	    treeify(X, t(X,[]), _).
 	
-		%If constants are treated as null-ary
-		%operators
-		treeify(X, t((X, N), []), N).
-		treeify(X, t(X, _), []).	
-
-		%If not nullary operators
-	    	treeify(X, t(X,[]), _).
+		//If not nullary operators
 		treeify(X, t(X,[])).
-
 
 
 

@@ -3,8 +3,8 @@ Siddhartha Prasad
 
 This directory contains:
 
-1. A term equality checker
-2. A system that verifies equalities
+1. A certifiable term equality checker
+2. A certified equality verifier
 
 Requirements
 -------------

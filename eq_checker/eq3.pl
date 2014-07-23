@@ -40,7 +40,7 @@ member(X,[X|_], 0).
 member(X,[_|T], N)  :-  member(X,T, N_), N is N_ + 1.									
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Replaces all t(OP, L) with t((OP,_), L) to be unified with treeify pairs
-treeify_uni(t(K,[]), t(K,[])).
+treeify_uni(t(K,[]), t(K,[])) :- K \= (_,_).
 treeify_uni(t((K, _), L), t((K, _), Lnew)) :- treeify_subterms_uni(L, Lnew, []).
 treeify_subterms_uni(L, Lnew, Lprev) :- L = [X|Tail],
 										treeify_uni(X, X_),
