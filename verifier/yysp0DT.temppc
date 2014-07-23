@@ -1,0 +1,10 @@
+style_check(-singleton), style_check(-discontiguous).
+consult('mF3s88v.temppc'),
+consult('verifier.pl').
+verify(
+a * - ( (a*e) * (b * -b))
+,
+100
+,
+e
+).

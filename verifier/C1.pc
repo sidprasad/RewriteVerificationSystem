@@ -1,5 +1,5 @@
-a * - ( (a*e) * (b * -b))
-[((conv,inv),[]), ((conv, id),[1,0]), ((conv,inv), [1,0,1]), ((conv, id),[1,0,0])]
+a * - ( (a*(e)))
+[((conv,inv),[]), ((conv, id),[1,0])]
 e
 
 treeify((X * Y), t((*), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
