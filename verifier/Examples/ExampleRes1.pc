@@ -1,0 +1,14 @@
+a * -(a * (b* -b))
+3
+e
+
+treeify((X * Y), t((*), [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
+treeify((- X), t((~), [X_])) :- treeify(X, X_).
+treeify(X, t(X,[])).
+
+
+% (sym,inv) e = a * -a
+pred(t(e,[]), t(*,[t(X, L), t(~, [t(X, L)])])).
+
+%(sym, id)  a = a * e						
+pred(A, t(*, [A, t(e, [])])).

@@ -116,9 +116,23 @@ While the constant case needs to be expressed only once, a seperate
 6. Also Provided
 ------------------
 
-- Example Certificates that use various features of "checkpc" can alss be found
+- Example Certificates that use various features of "checkpc" can also be found
 in the directory '/Examples'. Additionally, the "rwthree" equality checker
 can also be used to generate examples.
 
 - A proof of correctness of the "checkpc" verifier
+
+7. Known Limitations
+------------------
+ - If the verification of a proof requires resources greater than those
+   provided to "checkpc", the system displays an error message, but
+   continues to attempt to verify the proof within given resources.
+   In such a case, the system might decide that a proof is not valid
+   even if it is. In such a case, it is advisable to attempt to verify the
+   proof in question with:
+	- A more detailed proof certificate
+	- A larger local stack
+   
+  The certificate 'ExampleRes1.pc' shows such a situation, where a more
+  detailed proof certificate is required by the program.
 

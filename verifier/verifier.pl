@@ -6,8 +6,8 @@ t(_, _).
 %recognizes if the rewrite procedure is valid.
 
 verify(Tfinal, Certificate, Toriginal) :-  treeify(Tfinal, Rw),
-										treeify(Toriginal, T),
-										onestep(Rw, Certificate, T).
+   					   treeify(Toriginal, T),
+					   onestep(Rw, Certificate, T).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % If the current certificate is an empty list or a zero, the terms must be the
 %same for the rewrites to be valid.
@@ -21,15 +21,15 @@ onestep(X, S, X) :- number(S), S \= 0, write('In fewer steps').
 %If a list of rewrites (in order) and positions of terms are given,
 %Each step is of the form:
 onestep(Rw, [(Pred, Path)|Tail], T) :-  isList(Path),
-										applyPred(Path, T, Pred, T_),
-										catch(onestep(Rw, Tail, T_), _, fail).
+					applyPred(Path, T, Pred, T_),
+					catch(onestep(Rw, Tail, T_), _, fail).
  
  %And predicates are applied as:
  %Allows for using Tacticals
  applyPred([], Term, (Prop, Pred), T_) :- G=..[Prop, Pred, Term, T_], G.
  %Apply predicate on the term to be rewritten, ensuring it is of the proper form
  applyPred([], Term, Pred, T_) :-  Pred \= (_,_),
-								   G=..[Pred, Term, T_], G.
+				   G=..[Pred, Term, T_], G.
  %Else, go to term to be rewritten
  applyPred([N|P_], t(K, L), Pred, t(K, Lnew)) :- listmem(N,L, X), applyPred(P_,X, Pred, Y), replace(N, Y,L, Lnew). 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,7 +38,8 @@ onestep(Rw, [(Pred, Path)|Tail], T) :-  isList(Path),
 onestep(Rw, N, T) :- number(N), N > 0,
 			applyPred(T, T_),
 			N_ is N - 1,
-			catch(onestep(Rw, N_, T_), _, fail).
+			catch(onestep(Rw, N_, T_), E,
+				(write(E),write('. Trying other options\n'), fail)).
 
 %And predicates are applied as : applyPred(Term, rewritten term)								  
 %Have reached the term to be rewritten, apply predicate
@@ -49,7 +50,8 @@ onestep(Rw, N, T) :- number(N), N > 0,
 %If complete information is given about either the paths or predicate order,
 %Each step is of the form:
 onestep(Rw, [P|Tail], T) :- applyPred(P, T, T_),
-				catch(onestep(Rw, Tail, T_), _, fail).
+				catch(onestep(Rw, Tail, T_), E,(write(E), 
+				write('. Trying other options\n.'), fail)).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %If only path given, it is assumed the predicates have the same name.
@@ -68,7 +70,7 @@ applyPred([N|P_], t(K, L), t(K, Lnew)) :- listmem(N,L, X), applyPred(P_,X, Y), r
  applyPred((Prop, Pred), Term, T_) :- notList(Pred),G=..[Prop, Pred, Term, T_], G.
  %Predicate here must be an atom
  applyPred(Pred, Term, T_) :- atom(Pred),notList(Pred),
-								G=..[Pred, Term, T_], G.  
+			      G=..[Pred, Term, T_], G.  
 								
 %Else, go to term to be rewritten, which could be in child of t(K, L) (member of L).
   applyPred(Pred, t(K, L), t(K, Lnew)) :- member(X,L, N), applyPred(Pred,X, Y), replace(N,Y, L, Lnew). 
