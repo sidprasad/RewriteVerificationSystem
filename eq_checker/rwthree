@@ -7,38 +7,67 @@ CRT=$(mktemp XXXXXXX.temppc) || exit 1
 TMP=$(mktemp XXXXXXX.temppc) || exit 1
 
 echo 'X=' >$TMP
-sed '1q;d' $2 >>$TMP
-echo ', Y=' >>$TMP
-sed '2q;d' $2 >>$TMP
-echo ',equal(X, Y, ' >> $TMP
-sed '3q;d' $2 >>$TMP
+case $1 in 
+	# -t flag
+	-t)
+		cat eq3.pl $2 > $TMPFILE
+		sed '1q;d' $3 >>$TMP
+		echo ', Y=' >>$TMP
+		sed '2q;d' $3 >>$TMP
+		echo ',equal(X, Y' >> $TMP
+		;;
+	*)
+		cat eq3.pl $1 > $TMPFILE
+		echo 'X=' >$TMP
+		sed '1q;d' $2 >>$TMP
+		echo ', Y=' >>$TMP
+		sed '2q;d' $2 >>$TMP
+		echo ',equal(X, Y, ' >> $TMP
+		sed '3q;d' $2 >>$TMP
+		;;
+esac
+
 echo ', Cert1, Cert2, Rw), createCert(X, Cert1, Rw), createCert(Y, Cert2, Rw).' >> $TMP
 
-printf 'Checking ' 
-sed  '1q;d' $2
-printf ' = '
-sed '2q;d' $2
-
-cat eq3.pl $1 > $TMPFILE
 cat parse.pl >> $TMPFILE
 swipl -q -f $TMPFILE < $TMP > $CRT
 
 #This will replace all strings of the form :-{.}*{>|<}{.}*
 #With .\n . That is, all non-terminating rules.
 
-sed s/:-.*'>'.*/'.\n'/ $1 > $TMPFILE
+case $1 in 
+	-t)
+		sed s/:-.*'>'.*/'.\n'/ $2 > $TMPFILE
 
-sed '6q;d' $CRT >$4
-sed '5q;d' $CRT >>$4
-sed '4q;d' $CRT >>$4
+		sed '6q;d' $CRT >$5
+		sed '5q;d' $CRT >>$5
+		sed '4q;d' $CRT >>$5
 
-sed '3q;d' $CRT > $3
-sed '2q;d' $CRT >> $3
-sed '1q;d' $CRT >>$3
+		sed '3q;d' $CRT > $4
+		sed '2q;d' $CRT >> $4
+		sed '1q;d' $CRT >>$4
 
-# Over here, all terminating rules need to be dealt with.
-cat $TMPFILE >> $3
-cat $TMPFILE >> $4
+		# Over here, all terminating rules need to be dealt with.
+		cat $TMPFILE >> $4
+		cat $TMPFILE >> $5
+	;;
+
+	*)
+		sed s/:-.*'>'.*/'.\n'/ $1 > $TMPFILE
+
+		sed '6q;d' $CRT >$4
+		sed '5q;d' $CRT >>$4
+		sed '4q;d' $CRT >>$4
+
+		sed '3q;d' $CRT > $3
+		sed '2q;d' $CRT >> $3
+		sed '1q;d' $CRT >>$3
+
+		# Over here, all terminating rules need to be dealt with.
+		cat $TMPFILE >> $3
+		cat $TMPFILE >> $4
+	;;
+esac
 
 rm $TMP
 rm $TMPFILE

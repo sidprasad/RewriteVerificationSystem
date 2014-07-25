@@ -12,7 +12,7 @@ for use in a Prolog Shell, consult the Prolog Use Notes.
 
 In the command line, the program can be used as follows:
 
-	% sh rwthree rewrite_rules.pl input C1 C2
+	% sh rwthree [flags] rewrite_rules.pl input C1 C2
 
 i. Rewrite rules must be represented in Prolog syntax in a file, as described
    in section 3.
@@ -21,6 +21,8 @@ ii. The input file should contain the two terms to be equated on seperate lines
 	with the  (max) number of non-terminating rules to be used per term on
         the third line.
 
+iii. The -t flag is used to provide input terms as trees. In this case, the number
+     on non-terminating rules should not be provided.
 
 2. Termination
 --------------
@@ -69,9 +71,14 @@ Example files of rules can be found in the ExampleRules directory.
 	
 4. Building trees
 --------------
-Equality Checker 3 allows expects input in linear
-mathematical notation. In order to express terms linearly the user
- must also provide the program with a way to parse expressions into
+Equality Checker 3 allows the user the flexibility of providing terms in linear
+mathematical notation or as trees.
+
+The -t flag should be used when providing terms in tree form.
+
+
+In order to express terms linearly the user
+must also provide the program with a way to parse expressions into
 and trees, named 'treeify'.
 
 For instance, to parse the operator '+':
