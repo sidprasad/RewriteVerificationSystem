@@ -8,7 +8,10 @@ The 'checkpc' verifier is a system that can, given a certificate of a proof
 that two terms are equal, produce a larger proof and check its correctness.
 
 It can be used on the command-line as follows:
-		% sh checkpc proofcertificate.pc
+		% sh checkpc [-flags] proofcertificate.pc
+
+	Flags:
+		-t : Input terms provided as trees
 
 2. Proof Certificates
 ----------------------
@@ -70,11 +73,10 @@ the size of certificates required by the verifier.
 Terms are represented in the system as trees of the form:
 				t(OP, L)
 		where OP is an operation,
-		N is the number of non-terminating rules
 		L is a list of the proper subterms of the current term
 
-If a term is a constant or variable (say x), it is of the form
-				t(x, [])
+If a term is a constant or variable, it is of the form
+				t(X, [])
 
 Thus, the subterms of a term are zero-indexed by integers, from left to
 right. 'Paths'  in the Certificate List therefore take the form of a list 
@@ -94,10 +96,15 @@ For example, the rule	1 * X = X could be represented as:
 If the name of a rule is not explicitly mentioned in the 'Certificate List',
 it, by default, assumed to be 'pred'.
 
-5. Building trees
----------------------
-'checkpc' allows the user to input terms in linear
-mathematical notation. In order to express terms linearly the user
+5. Building trees and the '-t' flag
+--------------------------------------
+'checkpc' allows the user the flexibility of providing terms in linear
+mathematical notation or trees as defined above.
+
+In order to provide terms as trees (as defined in Section 4), the -t
+flag must be used.
+
+In order to express terms linearly the user
 must also provide the program with a way to parse expressions into
 and trees, in the form of Prolog predicates named 'treeify'.
 

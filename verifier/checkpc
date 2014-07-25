@@ -4,8 +4,17 @@ PRED=$(mktemp XXXXXXX.temppc) || exit 1
 QUERY=$(mktemp XXXXXXX.temppc) || exit 1
 TMPFILE=$(mktemp XXXXXXX.temppc) || exit 1
 
-#Get predicates from argument
-sed '1,3d' $1 >> $PRED
+case $1 in
+	
+	#If the -t flag is used
+	-t) 
+		sed '1,3d' $2 >> $PRED
+		;;
+	*)
+		#Get predicates from argument
+		sed '1,3d' $1 >> $PRED
+		;;
+esac
 
 #Create the query using the Certificates
 
@@ -13,13 +22,28 @@ sed '1,3d' $1 >> $PRED
 echo "style_check(-singleton), style_check(-discontiguous)." >> $QUERY
 echo "consult('$PRED')," >> $QUERY
 echo "consult('verifier.pl')." >> $QUERY
-echo "verify(" >> $QUERY
-sed '1q;d' $1 >> $QUERY
-echo "," >> $QUERY
-sed '2q;d' $1 >> $QUERY
-echo "," >>$QUERY
-sed '3q;d' $1 >> $QUERY
-echo ")." >>$QUERY
+
+case $1 in
+-t)
+	echo "onestep(" >> $QUERY
+	sed '1q;d' $2 >> $QUERY
+	echo "," >> $QUERY
+	sed '2q;d' $2 >> $QUERY
+	echo "," >>$QUERY
+	sed '3q;d' $2 >> $QUERY
+	echo ")." >>$QUERY
+	;;
+
+*)
+	echo "verify(" >> $QUERY
+	sed '1q;d' $1 >> $QUERY
+	echo "," >> $QUERY
+	sed '2q;d' $1 >> $QUERY
+	echo "," >>$QUERY
+	sed '3q;d' $1 >> $QUERY
+	echo ")." >>$QUERY
+	;;
+esac
 #Remove first two lines of output, as it has to do with style_check
 swipl -q < $QUERY 2> $TMPFILE
 sed '1,3d' $TMPFILE
