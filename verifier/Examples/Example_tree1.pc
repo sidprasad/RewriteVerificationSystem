@@ -2,10 +2,6 @@ t(+,[t(a,[]),t(+,[t(b,[]),t(-,[t(c,[]),t(c,[])])])])
 [(subtr,[1,0]), (id_add, [1]), ((conv, id_add),[1]), ((conv, subtr), [1,1]) ]
 t(+,[t(a,[]),t(+,[t(-,[t(b,[]),t(b,[])]),t(b,[])])])
 
-treeify(X + Y, t(+, [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
-treeify(X - Y, t(-, [X_, Y_])) :- treeify(X, X_), treeify(Y, Y_).
-treeify(X, t(X, [])).
-
 comm_add( t('+', [X, Y]), t('+', [Y, X])).
 id_add(t('+', [X, t(0, [])]), X).
 id_add(t('+', [t(0, []), X]), X).
