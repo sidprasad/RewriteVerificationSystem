@@ -24,6 +24,9 @@ ii. The input file should contain the two terms to be equated on seperate lines
 iii. The -t flag is used to provide input terms as trees. In this case, the number
      on non-terminating rules should not be provided.
 
+iv. C1 and C2 are the proof certificates produced by the system.
+
+
 2. Termination
 --------------
 It may be the case that certain rules (or pairs of rules) cause the system
