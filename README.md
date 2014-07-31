@@ -7,7 +7,7 @@ This directory contains:
 1. A certifiable term equality checker
 2. A certified equality verifier
 
-The system Wiki is avaialable [here](https://github.com/sidprasad/RewriteVerificationSystem/wiki).
+**The system Wiki is avaialable [here](https://github.com/sidprasad/RewriteVerificationSystem/wiki).**
 
 ### Requirements
 
