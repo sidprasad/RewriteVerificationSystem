@@ -67,7 +67,7 @@ Non terminating rules are expressed as follows:
 	
 4. Building trees
 --------------
-rwthree allows the user the flexibility of providing
+Equality Checker 3 allows the user the flexibility of providing
 input both in the form of trees as specified above and in linear
 mathematical notation. In order to express terms linearly the user
  must also provide the program with a way to parse expressions into

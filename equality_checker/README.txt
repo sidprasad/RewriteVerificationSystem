@@ -1,13 +1,13 @@
-Equality Checker 3
+RWTHREE
 Siddhartha Prasad
 
 1. Overview
 --------------
-Equality Checker 3 is an equality checking system that, given a set of rewrite
+Rwthree is an equality checking system that, given a set of rewrite
 rules, checks if two terms are equal in the specified system. It also provides
 a verifiable certificate of the procedure used to determine equality.
 
-SWI-Prolog are required required to use Equality Checker 3 from the command line,
+SWI-Prolog are required required to use rwthree from the command line,
 for use in a Prolog Shell, consult the Prolog Use Notes.
 
 In the command line, the program can be used as follows:
@@ -53,25 +53,25 @@ of the form:
 
 	If constants are of the form (X,Y), they must be expressed as
 	null-ary operators.
-			
+
 Terminating rules are expressed as follows:
 	%Rule
 	1 * X = X
-	%Equality Checker 3 representation.
+	%rwthree representation.
 	pred(t(('*', N), [t(1, []), X]), X).
-	
+
 Non terminating rules are expressed as follows:
 	%Rule
 	X + Y = Y + X
-	%Equality Checker 3 representation.
+	%rwthree representation.
 	pred( t(('+', N), [X, Y]), t(('+', N_), [Y, X])) :- N > 0, N_ is N-1.
 
 Example files of rules can be found in the ExampleRules directory.
 
-	
+
 4. Building trees
 --------------
-Equality Checker 3 allows the user the flexibility of providing terms in linear
+rwthree allows the user the flexibility of providing terms in linear
 mathematical notation or as trees.
 
 The -t flag should be used when providing terms in tree form.
@@ -87,7 +87,7 @@ For instance, to parse the operator '+':
 							    treeify(Y, Y_, N).
 		treeify((X + Y), t((+, _), [X_, Y_])) :- treeify(X, X_),
 							 treeify(Y, Y_).
-	
+
 		%If constants are treated as null-ary
 		%operators
 		treeify(X, t((X, N), []), N).
@@ -96,7 +96,3 @@ For instance, to parse the operator '+':
 		%If not nullary operators
 	    	treeify(X, t(X,[]), _).
 		treeify(X, t(X,[])).
-
-
-
-

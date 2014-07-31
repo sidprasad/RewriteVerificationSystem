@@ -116,7 +116,7 @@ For instance, to parse the operator '+':
 	%Constant case
 	treeify(X, t(X,[])).
 
-While the constant case needs to be expressed only once, a seperate
+While the constant case needs to be expressed only once, a separate
 'treeify' predicate must be defined for each operator symbol.
 
 

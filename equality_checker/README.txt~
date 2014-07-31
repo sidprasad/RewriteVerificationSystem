@@ -1,27 +1,28 @@
-RWTHREE
+Equality Checker 3
 Siddhartha Prasad
 
 1. Overview
 --------------
-rwthree is an equality checking system that, given a set of rewrite
+Equality Checker 3 is an equality checking system that, given a set of rewrite
 rules, checks if two terms are equal in the specified system. It also provides
 a verifiable certificate of the procedure used to determine equality.
 
-The program must be loaded into a Prolog interpreter, along with rewrite rules
-as detailed below. It can then be used as follows:
+SWI-Prolog are required required to use Equality Checker 3 from the command line,
+for use in a Prolog Shell, consult the Prolog Use Notes.
 
-i. If the input terms are provided in linear mathematical notation:
-			equal(<Term1>, <Term2>, <Number of Non-Terminating Rules>, Certificate1, 
-				Certificate2, Rw (Intermediate to which both expressions are rewritten)).
-			
-ii. If the input terms are provided as trees:
-			equal(<Term1>, <Term2>, Certificate1, Certificate2, 
-			Rw (Intermediate to which both expressions are rewritten)).
+In the command line, the program can be used as follows:
 
-Certificate1 is a certificate of Term1 = Rw
-Certificate2 is a certificate of Term2 = Rw
-Rw, Certificate1 and Certificate2 should be Prolog variables.
+	% sh rwthree [flags] rewrite_rules.pl input C1 C2
 
+i. Rewrite rules must be represented in Prolog syntax in a file, as described
+   in section 3.
+
+ii. The input file should contain the two terms to be equated on seperate lines
+	with the  (max) number of non-terminating rules to be used per term on
+        the third line.
+
+iii. The -t flag is used to provide input terms as trees. In this case, the number
+     on non-terminating rules should not be provided.
 
 2. Termination
 --------------
@@ -64,13 +65,20 @@ Non terminating rules are expressed as follows:
 	X + Y = Y + X
 	%Equality Checker 3 representation.
 	pred( t(('+', N), [X, Y]), t(('+', N_), [Y, X])) :- N > 0, N_ is N-1.
+
+Example files of rules can be found in the ExampleRules directory.
+
 	
 4. Building trees
 --------------
-rwthree allows the user the flexibility of providing
-input both in the form of trees as specified above and in linear
-mathematical notation. In order to express terms linearly the user
- must also provide the program with a way to parse expressions into
+Equality Checker 3 allows the user the flexibility of providing terms in linear
+mathematical notation or as trees.
+
+The -t flag should be used when providing terms in tree form.
+
+
+In order to express terms linearly the user
+must also provide the program with a way to parse expressions into
 and trees, named 'treeify'.
 
 For instance, to parse the operator '+':
@@ -88,4 +96,7 @@ For instance, to parse the operator '+':
 		%If not nullary operators
 	    	treeify(X, t(X,[]), _).
 		treeify(X, t(X,[])).
+
+
+
 
