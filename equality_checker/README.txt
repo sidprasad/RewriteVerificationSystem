@@ -7,10 +7,10 @@ Rwthree is an equality checking system that, given a set of rewrite
 rules, checks if two terms are equal in the specified system. It also provides
 a verifiable certificate of the procedure used to determine equality.
 
-SWI-Prolog are required required to use rwthree from the command line,
-for use in a Prolog Shell, consult the Prolog Use Notes.
+SWI-Prolog, mktemp and sed are required to use rwthree from the command line.
+For use in a Prolog Shell, consult the Prolog Use Notes.
 
-In the command line, the program can be used as follows:
+On the command line, the program can be used as follows:
 
 	% sh rwthree [flags] rewrite_rules.pl input C1 C2
 
