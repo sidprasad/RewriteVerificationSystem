@@ -1,6 +1,6 @@
 # Rewrite Verification System
 ## Siddhartha Prasad
-## 31st July 2014
+#### 31st July 2014
 
 This directory contains:
 
